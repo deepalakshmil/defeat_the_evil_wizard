@@ -24,8 +24,6 @@ class Character:
     def display_stats(self):
         print(f"\n{self.name}'s Stats - Health : {self.health}/{self.max_health}, Attack Power: {self.attack_power}")
 
-
-
 # ====================== SUBCLASSES ============================        
 # Warrior class (inherits from Character)
 
@@ -63,6 +61,10 @@ class Warrior(Character):
              print(f"{self.name} now has current helath {self.health}.")
         else:
             print(f"Invalid selection. Defaulting to Deadly Strike")
+            # Default to Choice 1
+            damage=self.attack_power * 3
+            opponent.health -=damage
+            print(f"\n{self.name} strikes {opponent.name} and does {damage} damage!!!")
 
 # ====================== SUBCLASSES ============================        
 # EvilWizard class (inherits from Character)
@@ -109,6 +111,13 @@ class Mage(Character):
 
         else:
              print(f"Invalid selection. Defaulting to Spellweave Echo")
+             # Default to Choice 1
+             damage=self.attack_power *2
+             opponent.health -=damage
+             self.health += 55
+             if self.health > self.max_health:
+                self.health = self.max_health
+             print(f"{self.name} spells the {opponent.name} and does {damage} damage!!! and the {self.name} increasing health {self.health}")
 
 # ====================== SUBCLASSES ============================        
 # Rogue class (inherits from Character)
@@ -121,38 +130,42 @@ class Rogue(Character):
         '''
         self.evadeNextAttack = False
     def special_ability(self,opponent):
-                print("\nSpecial Abilities:")
-                print("1. Gathering Shadows")
-                print("2. Siphoning Strikes")
-                print("3. Preemptive Dodge (Evade)")
-                action = input("Which ability do you want to use? ")
+        print("\nSpecial Abilities:")
+        print("1. Gathering Shadows")
+        print("2. Siphoning Strikes")
+        print("3. Preemptive Dodge (Evade)")
+        action = input("Which ability do you want to use? ")
 
-                if action == "1":
-                    """
-                Ability: Gathering Shadows
-                Increases the Rogue's damage by 30, but does not attack.
-                    """
-                    self.attack_power +=36
-                    print(f"\nShadows gather around {self.name} increasing their damage to {self.attack_power}.")
-                elif action == "2":
-                    """
-                Ability: Siphoning Strikes
-                Strikes the opponent and heals for half of the damage dealt.  
-                    """
-                    opponent.health -= self.attack_power
-                    self.health += self.attack_power // 2    # Floor division rounds to the nearest integer (whole number)
-                    if self.health > self.max_health:
-                        self.health == self.max_health
-                    print(f"\n{self.name} strikes {opponent.name} with vampiric daggers, dealing {self.attack_power} damage and siphoning the wizard's health to {self.health} health.")
-                elif action == "3":
-                    """
-                Ability: Preemptive Dodge
-                Dodge the next attack.
-                    """   
-                    self.evadeNextAttack = True
-                    print(f"\n{self.name} uses Preemptive Dodge. He will evade the next attack!")
-                else:
-                    print(f"Invalid selection. Defaulting to Gathering Shadows")
+        if action == "1":
+             """
+        Ability: Gathering Shadows
+        Increases the Rogue's damage by 30, but does not attack.
+            """
+             self.attack_power +=36
+             print(f"\nShadows gather around {self.name} increasing their damage to {self.attack_power}.")
+        elif action == "2":
+             """
+        Ability: Siphoning Strikes
+        Strikes the opponent and heals for half of the damage dealt.  
+            """
+             opponent.health -= self.attack_power
+             self.health += self.attack_power // 2    # Floor division rounds to the nearest integer (whole number)
+             if self.health > self.max_health:
+                self.health == self.max_health
+             print(f"\n{self.name} strikes {opponent.name} with vampiric daggers, dealing {self.attack_power} damage and siphoning the wizard's health to {self.health} health.")
+        elif action == "3":
+            """
+        Ability: Preemptive Dodge
+        Dodge the next attack.
+            """
+            self.evadeNextAttack = True
+            print(f"\n{self.name} uses Preemptive Dodge. He will evade the next attack!")
+        else:
+            print(f"Invalid selection. Defaulting to Gathering Shadows")
+            # Default to Choice 1
+            self.attack_power +=36
+            print(f"\nShadows gather around {self.name} increasing their damage to {self.attack_power}.")
+
 
 # ====================== SUBCLASSES ============================        
 # Kael class (inherits from Character)
@@ -192,8 +205,13 @@ class Kael(Character):
 
         else:
             print(f"Invalid selection. Defaulting to Flamecut Arc Fire")
-
-
+             # Default to Choice 1
+            opponent.health -=35
+            opponent.attack_power -=6
+            if opponent.attack_power <= 0:
+                opponent.attack_power =10
+            print(f"The {self.name} was used Flamecut Arc Fire on {opponent.name}. Their health was reduced to {opponent.health} and attack power to {opponent.attack_power}")
+        
  # ====================== SUBCLASSES ============================        
 # Ninja class (inherits from Character)
 
@@ -229,6 +247,11 @@ class Ninja(Character):
             print(f"Kiro was added. {self.name} has gained high speed attack of {self.high_speed_attack} and {opponent.name} health was reduced to {opponent.health}")
         else:
             print(f"Invalid selection. Defaulting to Shadow Ripple")   
+              # Default to Choice 1
+            print(f"{self.name} shadow a ripple, the kiro shadow's charges {opponent.name}")
+            opponent.health -=30
+            print(f"The kiro does 30 damage to {opponent.name}. Health now at {opponent.health}")    
+
 
 
 
